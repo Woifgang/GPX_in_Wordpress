@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <title>GPX trackpoints and waypoints</title>
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="jquery-ui/jquery-ui.js"></script>
+        <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+        <link href="jquery-ui/jquery-ui.css" rel="stylesheet">
+
+        <style>
+
+            body{
+
+            }
+
+            #wrapper{
+                width: 90%;
+                margin: 0 auto;
+            }
+
+            #map{
+                height: 500px;
+                width: 100%; 
+            }
+
+        </style>
+
+
+    </head>
+    <body>
+        <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+
+        <div id="wrapper">
+
+            <div id="map"></div>
+
+            <div id="accordion">
+                <h3>Höhenprofil</h3>
+                <p>Höhenprofil</p>            
+
+                <h3>Download</h3>
+                <p>Download link</p>
+
+            </div>
+
+
+        </div>
+
+
+        <script>
+
+            $("#accordion").accordion();
+
+            L.mapbox.accessToken = 'pk.eyJ1Ijoid29pZmdhbmciLCJhIjoiY2lqdmhxZXBkMDc2Znc4bTNncWxkMGM0YiJ9.p8Kxga4m-9kvzFuNNF7Gww';
+            var map = L.mapbox.map('map', 'mapbox.streets');
+
+            var runLayer = omnivore.gpx('/GPX/Lam-Heugstatt-Kleiner Arbersee-Lam.gpx')
+                .on('ready', function() {
+                    map.fitBounds(runLayer.getBounds());
+                })
+                .addTo(map);
+        </script>
+    </body>
+</html>
